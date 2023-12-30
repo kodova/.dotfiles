@@ -1,0 +1,13 @@
+import = [
+    "~/.config/alacritty/themes/themes/gruvbox_dark.toml"
+]
+
+[window]
+	opacity = 0.95	
+	blur = true
+
+[font]
+	size = 7
+
+[font.normal]
+	family = "NotoMono Nerd Font Mono"
