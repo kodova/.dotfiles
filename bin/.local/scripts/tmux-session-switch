@@ -1,0 +1,8 @@
+#!/usr/bin/env fish
+
+echo "hello"
+
+set target (tmux ls -F "#{session_name}" | fzf)
+
+tmux switch-client -t $target
+

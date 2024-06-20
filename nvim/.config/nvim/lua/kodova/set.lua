@@ -26,3 +26,8 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "120"
 
+vim.g.netrw_keepdir = 1
+
+vim.filetype.add({ extension = { templ = "templ" } })
+
+

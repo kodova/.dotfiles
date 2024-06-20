@@ -4,3 +4,9 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm.git
+[submodule "esoteric"]
+	path = esoteric
+	url = git@github.com:kodova/esoteric.git
+[submodule "genius-monkey"]
+	path = genius-monkey
+	url = git@github.com:kodova/genius-monkey.git

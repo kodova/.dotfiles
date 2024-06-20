@@ -3,11 +3,13 @@ import = [
 ]
 
 [window]
-	opacity = 0.95	
+	opacity = 1
 	blur = true
 
 [font]
-	size = 7
+	size = 10.5 
 
 [font.normal]
 	family = "NotoMono Nerd Font Mono"
+
+

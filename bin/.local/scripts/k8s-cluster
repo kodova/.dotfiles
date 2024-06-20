@@ -1,0 +1,31 @@
+#!/usr/bin/env fish
+
+set name k9s
+set running (pgrep tmux)
+
+tmux has-session -t $name &> /dev/null
+or set missing true
+
+echo "Running: $running"
+
+
+if test "$running" = "" -a $TMUX = ""
+	echo "No tmux session running"
+	tmux new-session -d -s $name
+	set is_new true
+else if set -q missing
+	echo "Session $name does not exist"
+	tmux new -ds $name -c ~/
+	set is_new true
+	echo "Session $name created"
+end
+
+
+if set -q is_new
+	tmux split-window -v -t $name:.0
+	tmux send-keys -t $name:.0 "k9s --context sand" Enter
+	tmux send-keys -t $name:.1 "k9s --context prod" Enter
+end
+
+tmux switch-client -t $name:.0
+

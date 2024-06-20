@@ -1,0 +1,31 @@
+#!/usr/bin/env fish
+
+# parse flags and if -m is present, use tmux-mux instead of tmux
+argparse -i 'm/monorepo' -- $argv
+
+
+if set -q _flag_m
+	set target (find ~/Workspace/client-systems/data ~/Workspace/client-systems/gateway ~/Workspace/client-systems/service -mindepth 1 -maxdepth 1 -type d | fzf)
+else if test (count $argv) -eq 0
+    set target (find ~/Workspace -mindepth 1 -maxdepth 1 -type d | fzf)
+else 
+    set target $argv[1]
+end
+
+set name (basename $target | tr . _)
+set running (pgrep tmux)
+
+if test "$running" = "" -a  $TMUX = ""
+	tmux new-session -s $name -c $target
+	exit 0
+end
+
+tmux has-session -t $name &> /dev/null
+and set exists true
+or set exists false
+
+if test !$exists
+	tmux new -ds $name -c $target
+end
+
+tmux switch-client -t $name
