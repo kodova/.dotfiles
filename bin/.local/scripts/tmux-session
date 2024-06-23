@@ -12,6 +12,8 @@ else
     set target $argv[1]
 end
 
+echo $target
+
 set name (basename $target | tr . _)
 set running (pgrep tmux)
 

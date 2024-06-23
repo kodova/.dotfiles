@@ -1,5 +1,16 @@
-vim.opt.background = "dark" -- set this to dark or light
-vim.cmd("colorscheme oxocarbon")
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+local default_config = {
+    transparent_background = false, -- set background to transparent
+    gamma = 1.00, -- adjust the brightness of the theme
+    styles = {
+        comments = { italic = true }, -- style for comments
+        keywords = { italic = true }, -- style for keywords
+        identifiers = { italic = true }, -- style for identifiers
+        functions = {}, -- style for functions
+        variables = {}, -- style for variables
+    },
+    custom_highlights = {} or function(highlights, palette) return {} end, -- extend highlights
+    custom_palette = {} or function(palette) return {} end, -- extend palette
+    terminal_colors = true, -- enable terminal colors
+}
