@@ -11,9 +11,13 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = {
 		"html",
+		"htmx",
 		"gopls",
 		"lua_ls",
 		"tailwindcss",
+		"terraform_lsp",
+		"bzl",
+		"tsserver",
 	},
 	handlers = {
 		function(server_name)
@@ -41,6 +45,27 @@ require('mason-lspconfig').setup({
 		end
 	}
 })
+
+--[[
+ require('lspconfig').gopls.setup({
+	settings = {
+		gopls = {
+			 env = {
+			 	GOPACKAGESDRIVER = './tools/gopls.sh',
+			 },
+			 directoryFilters = {
+		 		"-bazel-bin",
+		         "-bazel-out",
+			 	"-bazel-testlogs",
+		         "-bazel-mypkg",
+			 },
+
+		}
+	}
+})
+
+--[[
+]]--
 
 
 local cmp = require('cmp')
