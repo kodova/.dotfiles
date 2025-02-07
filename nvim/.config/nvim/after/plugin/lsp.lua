@@ -3,25 +3,37 @@ local lsp = require('lsp-zero')
 lsp.preset("recommended")
 
 lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
+	lsp.default_keymaps({ buffer = bufnr })
 end)
 
+vim.g.markdown_fenced_languages = {
+	"ts=typescript"
+}
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = {
 		"html",
 		"htmx",
+		"clangd",
 		"gopls",
 		"lua_ls",
 		"tailwindcss",
 		"terraform_lsp",
 		"bzl",
-		"tsserver",
+		"cssls",
+		"nxls",
+		"angularls",
+		"ts_ls",
 	},
 	handlers = {
 		function(server_name)
 			require('lspconfig')[server_name].setup({})
+		end,
+		angularls = function()
+			require('lspconfig').angularls.setup({
+				root_dir = require('lspconfig.util').root_pattern('angular.json', 'nx.json'),
+			})
 		end,
 		lua_ls = function()
 			require('lspconfig').lua_ls.setup({
@@ -31,7 +43,7 @@ require('mason-lspconfig').setup({
 							version = 'LuaJIT',
 						},
 						diagnostics = {
-							globals = {'vim'},
+							globals = { 'vim' },
 						},
 						workspace = {
 							library = vim.api.nvim_get_runtime_file("", true),
@@ -65,7 +77,7 @@ require('mason-lspconfig').setup({
 })
 
 --[[
-]]--
+]] --
 
 
 local cmp = require('cmp')
@@ -89,6 +101,3 @@ cmp.setup({
 		end,
 	},
 })
-
-
-

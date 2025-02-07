@@ -1,0 +1,55 @@
+#!/usr/bin/env fish
+
+function usage 
+	echo "Usage: sekret [options]"
+	echo "Options:"
+	echo "  -h, --help    Show this help message"
+	echo "  -e, --env     save data as environment variables in a file called .env"
+	echo "  -f, --files   save data as files in the current directory"
+	exit 1
+end
+
+argparse 'h/help' 'e/env' 'f/files' -- $argv
+
+if set -q _flag_help
+	usage
+end
+
+set fmt "out"
+# if we are writing to .env, clear the file first
+if set -q _flag_env
+	cat /dev/null > .env
+	set fmt "env"
+end
+
+if set -q _flag_files
+	set fmt "files"
+end
+
+# read from stdin and write the scret to a file/files
+function process_data
+	set output $argv[3]
+	begin
+		set -l IFS
+		set key $argv[1]
+		set value (echo $argv[2] | base64 --decode)
+	end
+
+	switch $fmt
+		case "env"
+		echo "$key=$value" >> .env
+	case "files"
+		echo $value > $key
+	case "*"
+		echo $key
+		echo $value
+		echo ""
+	end
+end
+
+set data (cat | yq -yr '.data')
+for pair in $data
+	# split the key and value at the : and pass to process data
+	set parts (string split ":" $pair)
+	process_data $parts[1] (string trim $parts[2]) $out
+end
