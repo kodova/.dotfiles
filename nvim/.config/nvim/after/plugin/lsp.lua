@@ -19,20 +19,33 @@ require('mason-lspconfig').setup({
 		"gopls",
 		"lua_ls",
 		"tailwindcss",
-		"terraform_lsp",
 		"bzl",
 		"cssls",
-		"nxls",
 		"angularls",
+		"pyright",
+		"nxls",
+		"protols",
 		"ts_ls",
 	},
 	handlers = {
 		function(server_name)
 			require('lspconfig')[server_name].setup({})
 		end,
+		nxls = function()
+			require('lspconfig').nxls.setup({ })
+		end,
 		angularls = function()
 			require('lspconfig').angularls.setup({
 				root_dir = require('lspconfig.util').root_pattern('angular.json', 'nx.json'),
+			})
+		end,
+		ts_ls = function()
+			require('lspconfig').ts_ls.setup({
+				init_options = {
+					preferences = {
+						 importModuleSpecifierPreference = "relative",
+					},
+				},
 			})
 		end,
 		lua_ls = function()

@@ -6,3 +6,5 @@ vim.keymap.set('n', '<leader>ps', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 
+vim.keymap.set("n", "<leader>sd", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Document Symbols" })
+vim.keymap.set("n", "<leader>sw", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "Workspace Symbols" })

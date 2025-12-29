@@ -14,4 +14,8 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-
+vim.filetype.add({
+	extension = {
+		gotmpl = 'gotmpl',
+	},
+})
