@@ -1,0 +1,23 @@
+#!/usr/bin/fish
+
+if test (count $argv) -lt 1
+	echo "Usage: launch-or-focus [window-pattern] [launch-command]"
+	exit 1
+end
+
+# app window
+set window $argv[1]
+
+# check the command we are trying to run
+set command $argv[2]
+set -q argv[2]; or set command "uwsm-app -- $window"
+
+# use hyprctl to check if the window is already open
+set window_id (hyprctl -j clients | jq -r --arg win "$window" '.[] | select(.class | test($win)) | .address' | head -n 1)
+
+
+if test -n "$window_id"
+	hyprctl dispatch focuswindow address:$window_id
+else
+	eval exec setsid $command
+end

@@ -1,0 +1,6 @@
+#!/usr/bin/fish
+
+set app_id "com.kodova.$(basename $argv[1])"
+set command "launch-tui $argv"
+
+exec launch-or-focus "$app_id" "$command"

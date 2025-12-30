@@ -19,12 +19,12 @@ require('mason-lspconfig').setup({
 		"gopls",
 		"lua_ls",
 		"tailwindcss",
-		"bzl",
 		"cssls",
 		"angularls",
 		"pyright",
 		"nxls",
 		"protols",
+		"jsonls",
 		"ts_ls",
 	},
 	handlers = {
